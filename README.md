@@ -1,66 +1,94 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Shopping-App-Back-End
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is the backend API for our Shopping App, built with Laravel. It provides the functionality for user registration, authentication, product management, and order processing.
 
-## About Laravel
+## Table of Contents
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+  - [Authentication](#authentication)
+  - [User Routes](#user-routes)
+  - [Product Routes](#product-routes)
+  - [Cart Routes](#cart-routes)
+  - [Order Routes](#order-routes)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Getting Started
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Prerequisites
 
-## Learning Laravel
+Before you begin, ensure you have met the following requirements:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP >= 7.3
+- Composer
+- MySQL or another compatible database
+- Laravel CLI
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Clone this repository:**
 
-## Laravel Sponsors
+   ```shell
+   git clone https://github.com/your-username/shopping-app-backend.git
+   
+2. **Navigate to the project directory:**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+   ```shell
+   cd shopping-app-backend
 
-### Premium Partners
+3. **Install project dependencies:**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+   ```shell
+   composer install
+   
+4. **Create a .env file by copying the .env.example file and configuring it with your database credentials and other environment-specific settings.**
+5. **Generate a new application key:**
 
-## Contributing
+   ```shell
+   php artisan key:generate
+   
+6. **Run the database migrations and seed the database:**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```shell
+   php artisan migrate --seed
 
-## Code of Conduct
+7. **Start the development server:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```shell
+   php artisan serve
 
-## Security Vulnerabilities
+  Now, your backend API should be up and running.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Usage
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Authentication
+- POST /api/customer: Register a new customer account.
+- POST /api/admin: Register a new admin account.
+- POST /api/login: Authenticate a user and receive an access token.
+- POST /api/logout: Logout User.
+### User Routes
+- GET /api/user: Get a list of all users.(admin only)
+- GET /api/user/{id}: Get a specific user's details.
+- DELETE /api/user/{id}: Delete a user (admin only).
+### Product Routes
+- GET /api/products: Get a list of all products.
+- GET /api/products/{id}: Get a specific product's details.
+- POST /api/product: Add a new product (admin only).
+- PUT /api/product/{id}: Update a product's details (admin only).
+- DELETE /api/product/{id}: Delete a product (admin only).
+### Cart Routes
+- GET /api/cart: Get the user's shopping cart.
+- GET /api/cart/{id}: Get a specific shopping cart item.
+- POST /api/cart/{product_id}: Add a product to the cart.
+- PUT /api/cart/{id}: Update the quantity of a product in the cart.
+- DELETE /api/cart/{id}: Remove a product from the cart.
+### Order Routes
+- GET /api/order: Get a list of all orders (admin only).
+- GET /api/order/{id}: Get a specific order's details.
+- POST /api/order/{product_id}: Place a new order.
+- PUT /api/order/{id}: Update the status of an order (admin only).
+### File Upload
+- GET /api/files: Get a list of all filenames.
+- POST /api/files/add: Upload a file.
+- POST /api/files/{product_id}/{filename}: View a file.
