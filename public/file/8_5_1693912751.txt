@@ -1,0 +1,68 @@
+https://hardhat.org/tutorial/
+
+https://etherscan.io/
+npx hardhat run scripts/deploy.js --network name
+npx hardhat verify 0xb572D0d77f603eDDBf10EC61C45268814ac6BB25 --network name
+https://rinkebyfaucet.com/
+
+https://docs.ethers.io/v5/
+
+
+
+
+
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity 0.8.0;
+
+contract auction{
+    mapping (address=>uint) biddersData;
+    uint highestBidAmount;
+    address highestBidder;
+    uint startTime=block.timestamp;
+    uint endTime;
+    bool endAuction=false;
+   
+    //put new bid
+    function putBid()public payable{
+        uint calculateAmount=biddersData[msg.sender]+msg.value;
+        require(endAuction==false,"auction is ended");
+       require(msg.value>0,"Bid amount cannot be zero");
+       //require(block.timestamp<=endTime,"auction is ended");
+
+       require(highestBidAmount<calculateAmount,"highest bid already present");
+
+       biddersData[msg.sender]=calculateAmount;
+       highestBidAmount=calculateAmount;
+       highestBidder=msg.sender;
+
+    }
+
+    function getBidderBid(address _address)public view returns(uint){
+        return biddersData[_address];
+    }
+
+    //get highest bid bidAmount
+    function HighestBid()public view returns(uint){
+        return highestBidAmount;
+    }
+
+    //get highest bidder address
+    function HighestBidder()public view returns(address){
+         return highestBidder;
+    }
+
+    //put end time
+    function putEndTime(uint _endTime)public{
+        endTime=_endTime;
+    }
+
+    function EndAuction()public{
+        endAuction=true;
+    }
+
+    function withdrawBid(address payable _address)public{
+        require(biddersData[_address]>0,"you havent bid");
+        require(_address!=highestBidder,"highest bidder cannot refund");
+        _address.transfer(biddersData[_address]);
+    }
+}
