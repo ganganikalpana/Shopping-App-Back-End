@@ -62,7 +62,7 @@ class userController extends Controller
     public function index(){
         $users=User::all();
 
-        if(!$users){
+        if($users->isEmpty()){
             return response()->json([
                 'status'=>404,
                 "errors"=>'Not found!'
@@ -91,6 +91,23 @@ class userController extends Controller
             'status'=>200,
             'message'=>'success',
             'data'=>$user,
+            200
+        ]);
+    }
+
+    public function delete($userid){
+        $user=User::find($userid);
+
+        if(!$user){
+            return response()->json([
+                'status'=>404,
+                "errors"=>'Not found!'
+                ], 404 );
+        }
+        $user->delete();
+        return response()->json([
+            'status'=>200,
+            'message'=>'success',
             200
         ]);
     }
