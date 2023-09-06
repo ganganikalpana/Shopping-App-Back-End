@@ -68,9 +68,8 @@ Before you begin, ensure you have met the following requirements:
 - POST /api/login: Authenticate a user and receive an access token.
 - POST /api/logout: Logout User.
 ### User Routes
-- GET /api/user: Get a list of all users.
+- GET /api/user: Get a list of all users.(admin only)
 - GET /api/user/{id}: Get a specific user's details.
-- PUT /api/user/{id}: Update a user's information (admin only).
 - DELETE /api/user/{id}: Delete a user (admin only).
 ### Product Routes
 - GET /api/products: Get a list of all products.
